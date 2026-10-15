@@ -5,6 +5,7 @@ import com.example.tripease.dto.response.CustomerResponse;
 import com.example.tripease.exception.CustomerNotFoundException;
 import com.example.tripease.model.Customer;
 import com.example.tripease.repository.CustomerRepository;
+import com.example.tripease.transformer.CustomerTransformer;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -20,18 +21,13 @@ public class CustomerService {
 
     public CustomerResponse addCustomer(CustomerRequest customerRequest) {
         Customer customer= new Customer();
-        customer.setCustomerName(customerRequest.getCustomerName());
-        customer.setCustomerEmailId(customerRequest.getCustomerEmailId());
-        customer.setCustomerAge(customerRequest.getCustomerAge());
-        customer.setCustomerGender(customerRequest.getCustomerGender());
+        customer=CustomerTransformer.customerRequestToCustomer(customerRequest);
 
         Customer savedCustomer= customerRepository.save(customer);
-        CustomerResponse customerResponse = new CustomerResponse();
-        customerResponse.setCustomerName(savedCustomer.getCustomerName());
-        customerResponse.setCustomerEmailId(savedCustomer.getCustomerEmailId());
-        customerResponse.setCustomerGender(savedCustomer.getCustomerGender());
 
-        return customerResponse;
+       return CustomerTransformer.customerToCustomerResponse(savedCustomer);
+
+
 
     }
 
@@ -41,10 +37,7 @@ public class CustomerService {
             throw new CustomerNotFoundException("Invalid Customer Id");
         }
         Customer customer= extractedCustomer.get();
-        CustomerResponse customerResponse = new CustomerResponse();
-        customerResponse.setCustomerName(customer.getCustomerName());
-        customerResponse.setCustomerEmailId(customer.getCustomerEmailId());
-        customerResponse.setCustomerGender(customer.getCustomerGender());
-        return customerResponse;
+
+        return CustomerTransformer.customerToCustomerResponse(customer);
     }
 }
