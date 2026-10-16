@@ -1,15 +1,13 @@
 package com.example.tripease.dto.response;
 
 import com.example.tripease.enums.Gender;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
 public class CustomerResponse {
     private String customerName;
     private String customerEmailId;
