@@ -59,4 +59,16 @@ public class CustomerService {
         }
         return customerResponses;
     }
+
+    public List<CustomerResponse> getByCustomerGenderAndAge(Gender gender, int age) {
+        List<Customer> customers= customerRepository.findByCustomerGenderAndCustomerAge(gender,age);
+        if(customers.isEmpty()){
+            throw new CustomerNotFoundException("Customer of gender"+gender+" and age "+age+" not registered");
+        }
+        List<CustomerResponse> customerResponses=new ArrayList<>();
+        for(Customer customer:customers){
+            customerResponses.add(CustomerTransformer.customerToCustomerResponse(customer));
+        }
+        return customerResponses;
+    }
 }

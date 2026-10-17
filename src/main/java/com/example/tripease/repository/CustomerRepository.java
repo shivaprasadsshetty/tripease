@@ -9,4 +9,5 @@ import java.util.Optional;
 
 public interface CustomerRepository extends JpaRepository<Customer,Integer> {
     List<Customer> findByCustomerGender(Gender customerGender);
+    List<Customer> findByCustomerGenderAndCustomerAge(Gender customerGender,int customerAge);
 }

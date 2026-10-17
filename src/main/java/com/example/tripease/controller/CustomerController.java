@@ -38,8 +38,15 @@ public class CustomerController {
     }
 
     @GetMapping("/get/customer-gender/{gender}")
-    public ResponseEntity<List<CustomerResponse>> getCustomerBYGender(@PathVariable("gender") Gender gender){
+    public ResponseEntity<List<CustomerResponse>> getAllCustomerBYGender(@PathVariable("gender") Gender gender){
         List<CustomerResponse> customerResponses= customerService.getByGender(gender);
+        return new ResponseEntity<>(customerResponses,HttpStatus.OK);
+    }
+
+    @GetMapping("/get/customer-gender-age")
+    public ResponseEntity<List<CustomerResponse>> getAllCustomerByGenderAndAge(@RequestParam("gender") Gender gender,
+                                                                               @RequestParam("age") int age){
+        List<CustomerResponse> customerResponses= customerService.getByCustomerGenderAndAge(gender,age);
         return new ResponseEntity<>(customerResponses,HttpStatus.OK);
     }
 }
