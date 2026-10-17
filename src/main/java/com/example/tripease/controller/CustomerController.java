@@ -2,6 +2,7 @@ package com.example.tripease.controller;
 
 import com.example.tripease.dto.request.CustomerRequest;
 import com.example.tripease.dto.response.CustomerResponse;
+import com.example.tripease.enums.Gender;
 import com.example.tripease.model.Customer;
 import com.example.tripease.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -33,5 +35,11 @@ public class CustomerController {
             return new ResponseEntity<>(customerResponse,HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(customerResponse,HttpStatus.OK);
+    }
+
+    @GetMapping("/get/customer-gender/{gender}")
+    public ResponseEntity<List<CustomerResponse>> getCustomerBYGender(@PathVariable("gender") Gender gender){
+        List<CustomerResponse> customerResponses= customerService.getByGender(gender);
+        return new ResponseEntity<>(customerResponses,HttpStatus.OK);
     }
 }
