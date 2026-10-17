@@ -45,10 +45,14 @@ public class CustomerService {
     }
 
     public List<CustomerResponse> getByGender(Gender gender) {
-
         List<Customer> customers= customerRepository.findByCustomerGender(gender);
-        
+
+        if(customers.isEmpty()){
+            throw new CustomerNotFoundException("Customers of gender "+gender+" not registered");
+        }
+
         List<CustomerResponse> customerResponses=new ArrayList<>();
+
         for(Customer customer: customers){
             CustomerResponse customerResponse= CustomerTransformer.customerToCustomerResponse(customer);
             customerResponses.add(customerResponse);
