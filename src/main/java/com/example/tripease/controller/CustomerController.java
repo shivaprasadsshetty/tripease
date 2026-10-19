@@ -49,4 +49,11 @@ public class CustomerController {
         List<CustomerResponse> customerResponses= customerService.getByCustomerGenderAndAge(gender,age);
         return new ResponseEntity<>(customerResponses,HttpStatus.OK);
     }
+
+    @GetMapping("/get/customer-gender-age-greater-than")
+    public ResponseEntity<List<CustomerResponse>> getAllCustomerBYGenderAndAgeGreaterThan(@RequestParam("gender") Gender gender,
+                                                                                          @RequestParam("age") int age){
+        List<CustomerResponse> customerResponses=customerService.getAllCustomerBYGenderAndAgeGreaterThan(gender,age);
+        return new ResponseEntity<>(customerResponses,HttpStatus.OK);
+    }
 }

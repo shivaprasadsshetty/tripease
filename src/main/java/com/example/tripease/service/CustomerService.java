@@ -71,4 +71,17 @@ public class CustomerService {
         }
         return customerResponses;
     }
+
+    public List<CustomerResponse> getAllCustomerBYGenderAndAgeGreaterThan(Gender gender, int age) {
+        List<Customer> customers=customerRepository.getAllCustomerBYGenderAndAgeGreaterThan(gender,age);
+        if(customers.isEmpty()){
+            throw new CustomerNotFoundException("Customer of gender"+gender+" and age greater than "+age+" not registered");
+        }
+        List<CustomerResponse> customerResponses= new ArrayList<>();
+        for(Customer customer:customers){
+            customerResponses.add(CustomerTransformer.customerToCustomerResponse(customer));
+        }
+        return customerResponses;
+
+    }
 }
