@@ -7,10 +7,7 @@ import com.example.tripease.service.DriverService;
 import lombok.Builder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/driver")
@@ -25,5 +22,11 @@ public class DriverController {
     public ResponseEntity<DriverResponse> addDriver(@RequestBody DriverRequest driverRequest){
         DriverResponse driverResponse=driverService.addDriver(driverRequest);
         return new ResponseEntity<>(driverResponse, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/get/driver-id/{id}")
+    public ResponseEntity<DriverResponse> getDriverById(@PathVariable int id){
+        DriverResponse driverResponse= driverService.getDriverById(id);
+        return new ResponseEntity<>(driverResponse,HttpStatus.OK);
     }
 }
