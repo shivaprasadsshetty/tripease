@@ -19,6 +19,7 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer customerId;
     private String customerName;
+    @Column(nullable = false,unique = true)
     private String customerEmailId;
     private int customerAge;
     @Enumerated(value = EnumType.STRING)

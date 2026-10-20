@@ -18,6 +18,7 @@ public class Driver {
     private Integer driverId;
     private String driverName;
     private int driverAge;
+    @Column(nullable = false,unique = true)
     private String driverEmailId;
 
     @OneToMany(cascade = CascadeType.ALL)
