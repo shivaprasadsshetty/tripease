@@ -15,6 +15,7 @@ public class DriverTransformer {
     }
     public static DriverResponse driverToDriverResponse(Driver driver){
         DriverResponse driverResponse=DriverResponse.builder()
+                .driverId(driver.getDriverId())
                 .driverName(driver.getDriverName())
                 .driverAge(driver.getDriverAge())
                 .driverEmailId(driver.getDriverEmailId())

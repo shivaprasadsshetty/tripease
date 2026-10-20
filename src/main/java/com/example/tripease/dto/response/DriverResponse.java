@@ -8,6 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class DriverResponse {
+    private int driverId;
     private String driverName;
     private int driverAge;
     private String driverEmailId;
