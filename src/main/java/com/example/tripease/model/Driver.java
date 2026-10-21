@@ -27,7 +27,7 @@ public class Driver {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="cabId")
-    private Cab cabId;
+    private Cab cab;
 }
 
 
