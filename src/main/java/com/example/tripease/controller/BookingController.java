@@ -19,6 +19,7 @@ public class BookingController {
     public ResponseEntity<BookingResponse> bookCab(@RequestBody BookingRequest bookingRequest,
                                   @PathVariable("customerId") int customerId){
         BookingResponse bookingResponse=bookingService.bookCab(bookingRequest,customerId);
+
         return  new ResponseEntity<>(bookingResponse, HttpStatus.OK);
     }
 }
