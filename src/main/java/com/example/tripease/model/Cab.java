@@ -1,9 +1,8 @@
 package com.example.tripease.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.example.tripease.enums.CabStatus;
+import com.sun.jdi.BooleanType;
+import jakarta.persistence.*;
 import lombok.*;
 
 @NoArgsConstructor
@@ -19,5 +18,6 @@ public class Cab {
     private String cabNumber;
     private String cabModel;
     private double perKmRate;
-    private boolean available;
+    @Enumerated(value= EnumType.STRING)
+    private CabStatus status;
 }

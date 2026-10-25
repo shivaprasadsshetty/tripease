@@ -2,6 +2,7 @@ package com.example.tripease.transformer;
 
 import com.example.tripease.dto.request.CabRequest;
 import com.example.tripease.dto.response.CabResponse;
+import com.example.tripease.enums.CabStatus;
 import com.example.tripease.model.Cab;
 import com.example.tripease.model.Driver;
 
@@ -11,7 +12,7 @@ public class CabTransformer {
                 .cabNumber(cabRequest.getCabNumber())
                 .cabModel(cabRequest.getCabModel())
                 .perKmRate(cabRequest.getPerKmRate())
-                .available(true)
+                .status(CabStatus.AVAILABLE)
                 .build();
         return cab;
     }
@@ -21,7 +22,7 @@ public class CabTransformer {
                 .cabNumber(cab.getCabNumber())
                 .cabModel(cab.getCabModel())
                 .perKmRate(cab.getPerKmRate())
-                .available(cab.isAvailable())
+                .status(cab.getStatus())
                 .driverResponse(DriverTransformer.driverToDriverResponse(driver))
                 .build();
         return cabResponse;
