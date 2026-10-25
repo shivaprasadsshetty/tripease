@@ -15,6 +15,8 @@ import com.example.tripease.repository.DriverRepository;
 import com.example.tripease.transformer.BookingTransformer;
 import com.example.tripease.transformer.CabTransformer;
 import com.example.tripease.transformer.CustomerTransformer;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -28,15 +30,18 @@ public class BookingService {
     private final CabRepository cabRepository;
     private final BookingRepository bookingRepository;
     private final DriverRepository driverRepository;
+    private final JavaMailSender javaMailSender;
     public BookingService(CustomerRepository customerRepository,
                           CabRepository cabRepository,
                           BookingRepository bookingRepository,
-                          DriverRepository driverRepository
+                          DriverRepository driverRepository,
+                          JavaMailSender javaMailSender
                           ){
         this.customerRepository=customerRepository;
         this.cabRepository=cabRepository;
         this.bookingRepository=bookingRepository;
         this.driverRepository=driverRepository;
+        this.javaMailSender=javaMailSender;
     }
 
     public BookingResponse bookCab(BookingRequest bookingRequest, int customerId) {
@@ -59,12 +64,38 @@ public class BookingService {
         customer.getBookingList().add(savedBooking);
         Driver driver=driverRepository.getDriverByCabId(cab.getCabId());
         driver.getBookingList().add(savedBooking);
-
         Driver savedDriver= driverRepository.save(driver);
         Customer savedCustomer= customerRepository.save(customer);
+        sendEmail(savedCustomer,driver,booking);
         return BookingTransformer.bookingToBookingResponse(booking,
                 CabTransformer.cabToCabResponse(cab,savedDriver),
                 CustomerTransformer.customerToCustomerResponse(savedCustomer)
                 );
+    }
+
+    private void sendEmail(Customer customer,Driver driver,Booking booking){
+        String text = "Dear " + customer.getCustomerName() + ",\n\n" +
+                "Thank you for choosing TripEase!\n\n" +
+                "Your cab has been booked successfully. Here are your booking details:\n\n" +
+                "========== BOOKING DETAILS ==========\n" +
+                "Pickup Location : " + booking.getPickUp() + "\n" +
+                "Destination     : " + booking.getDestination() + "\n\n" +
+                "========== DRIVER DETAILS ==========\n" +
+                "Driver Name     : " + driver.getDriverName() + "\n" +
+                "Cab Details     : " + driver.getCab().getCabModel() + "\n" +
+                                        driver.getCab().getCabNumber()+"\n"+
+                "We appreciate you choosing TripEase for your journey.\n" +
+                "Please be ready at your pickup location at the scheduled time.\n\n" +
+                "Have a safe and pleasant journey!\n\n" +
+                "Best Regards,\n" +
+                "Team TripEase\n" +
+                "tripeasespring@gmail.com";
+
+        SimpleMailMessage simpleMailMessage= new SimpleMailMessage();
+        simpleMailMessage.setFrom("tripeasespring@gmail.com");
+        simpleMailMessage.setTo(customer.getCustomerEmailId());
+        simpleMailMessage.setSubject("Cab Booked From "+booking.getPickUp()+" to "+booking.getDestination());
+        simpleMailMessage.setText(text);
+        javaMailSender.send(simpleMailMessage);
     }
 }
