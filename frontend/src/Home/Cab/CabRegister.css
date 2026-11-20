@@ -1,0 +1,137 @@
+
+.cab-register-page {
+  min-height: calc(100vh - 82px);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 60px;
+  padding: 60px 10%;
+  background: #f8fafc;
+}
+
+/* Left section */
+
+.cab-register-info {
+  max-width: 480px;
+}
+
+.cab-register-tag {
+  color: #0d9488;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  margin-bottom: 18px;
+}
+
+.cab-register-info h1 {
+  font-size: 48px;
+  color: #134e4a;
+  margin-bottom: 20px;
+}
+
+.cab-register-info p:last-child {
+  font-size: 17px;
+  line-height: 1.7;
+  color: #64748b;
+}
+
+/* Registration card */
+
+.cab-register-container {
+  width: 100%;
+  max-width: 450px;
+  background: white;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.07);
+}
+
+.cab-register-container h2 {
+  font-size: 28px;
+  color: #134e4a;
+  margin-bottom: 8px;
+}
+
+.cab-register-subtitle {
+  color: #64748b;
+  margin-bottom: 28px;
+}
+
+/* Form */
+
+.cab-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.cab-form-group label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #334155;
+}
+
+.cab-form-group input {
+  padding: 13px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 15px;
+  outline: none;
+  transition: border 0.2s;
+}
+
+.cab-form-group input:focus {
+  border-color: #0d9488;
+}
+
+.cab-register-btn {
+  width: 100%;
+  padding: 14px;
+  background: #0d9488;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.cab-register-btn:hover {
+  background: #0f766e;
+}
+
+.cab-register-message {
+  color: #0f766e;
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+/* Responsive */
+
+@media (max-width: 900px) {
+  .cab-register-page {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 35px;
+  }
+
+  .cab-register-info {
+    text-align: center;
+  }
+
+  .cab-register-info h1 {
+    font-size: 38px;
+  }
+}
+
+@media (max-width: 500px) {
+  .cab-register-page {
+    padding: 35px 20px;
+  }
+
+  .cab-register-container {
+    padding: 25px;
+  }
+}
